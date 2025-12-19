@@ -230,7 +230,7 @@ func slackCommandHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	if _, err := w.Write([]byte("Command received")); err != nil {
+	if _, err := w.Write([]byte(fmt.Sprintf("Slash command `%s` received 🎉", command.Command))); err != nil {
 		logError("Error writing response: %v", err)
 	}
 }
