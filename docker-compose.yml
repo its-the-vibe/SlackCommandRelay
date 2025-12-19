@@ -10,7 +10,7 @@ services:
       - "${PORT:-8080}:8080"
     environment:
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
-      - REDIS_HOST=${REDIS_HOST:-localhost}
+      - REDIS_HOST=${REDIS_HOST:-host.docker.internal}
       - REDIS_PORT=${REDIS_PORT:-6379}
       - REDIS_CHANNEL=${REDIS_CHANNEL:-slack-commands}
       - PORT=8080
