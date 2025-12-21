@@ -264,6 +264,7 @@ func main() {
 	// Configure Redis connection
 	redisHost := os.Getenv("REDIS_HOST")
 	redisPort := os.Getenv("REDIS_PORT")
+	redisPassword := os.Getenv("REDIS_PASSWORD")
 
 	// Set defaults
 	if redisHost == "" {
@@ -275,9 +276,13 @@ func main() {
 
 	// Initialize Redis client
 	redisAddr := fmt.Sprintf("%s:%s", redisHost, redisPort)
-	redisClient = redis.NewClient(&redis.Options{
+	redisOpts := &redis.Options{
 		Addr: redisAddr,
-	})
+	}
+	if redisPassword != "" {
+		redisOpts.Password = redisPassword
+	}
+	redisClient = redis.NewClient(redisOpts)
 
 	// Test Redis connection with timeout
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)

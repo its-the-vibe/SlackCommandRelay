@@ -13,6 +13,7 @@ services:
       - REDIS_HOST=${REDIS_HOST:-host.docker.internal}
       - REDIS_PORT=${REDIS_PORT:-6379}
       - REDIS_CHANNEL=${REDIS_CHANNEL:-slack-commands}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
       - PORT=8080
     volumes:
       - ./.secret:/app/.secret:ro
