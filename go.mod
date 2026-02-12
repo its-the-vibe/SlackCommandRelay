@@ -1,6 +1,8 @@
 module github.com/its-the-vibe/SlackCommandRelay
 
-go 1.25.5
+go 1.26
+
+toolchain go1.26.0
 
 require github.com/redis/go-redis/v9 v9.17.3
 
