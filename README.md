@@ -1,5 +1,7 @@
 # SlackCommandRelay
 
+[![CI](https://github.com/its-the-vibe/SlackCommandRelay/actions/workflows/ci.yaml/badge.svg)](https://github.com/its-the-vibe/SlackCommandRelay/actions/workflows/ci.yaml)
+
 A simple Go web service which consumes Slack commands and publishes to Redis pub/sub
 
 ## Features
