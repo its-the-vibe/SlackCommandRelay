@@ -102,8 +102,8 @@ func logError(format string, v ...interface{}) {
 	}
 }
 
-func verifySlackSignature(body []byte, timestamp string, signature string) bool {
-	if len(signingSecret) == 0 {
+func verifySlackSignature(secret []byte, body []byte, timestamp string, signature string) bool {
+	if len(secret) == 0 {
 		// No secret configured, skip verification
 		return true
 	}
@@ -133,7 +133,7 @@ func verifySlackSignature(body []byte, timestamp string, signature string) bool 
 
 	// Compute expected signature: v0:<timestamp>:<body>
 	baseString := fmt.Sprintf("v0:%s:%s", timestamp, string(body))
-	mac := hmac.New(sha256.New, signingSecret)
+	mac := hmac.New(sha256.New, secret)
 	mac.Write([]byte(baseString))
 	expectedMAC := mac.Sum(nil)
 	expectedSignature := hex.EncodeToString(expectedMAC)
@@ -165,7 +165,7 @@ func slackCommandHandler(w http.ResponseWriter, r *http.Request) {
 	// Verify Slack request signature
 	timestamp := r.Header.Get("X-Slack-Request-Timestamp")
 	signature := r.Header.Get("X-Slack-Signature")
-	if !verifySlackSignature(body, timestamp, signature) {
+	if !verifySlackSignature(signingSecret, body, timestamp, signature) {
 		logWarn("Invalid Slack signature")
 		http.Error(w, "Invalid signature", http.StatusUnauthorized)
 		return
