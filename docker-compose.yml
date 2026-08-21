@@ -4,6 +4,7 @@ services:
     image: ghcr.io/its-the-vibe/slackcommandrelay:latest
     pull_policy: always
     read_only: true
+    user: "${UID:-65532}:${GID:-65532}"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
