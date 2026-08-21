@@ -1,6 +1,8 @@
 services:
   slack-command-relay:
     build: .
+    image: ghcr.io/its-the-vibe/slackcommandrelay:latest
+    pull_policy: always
     read_only: true
     extra_hosts:
       - "host.docker.internal:host-gateway"

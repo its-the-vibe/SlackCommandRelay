@@ -2,35 +2,14 @@ name: CI
 
 on:
   push:
-    branches: ["**"]
+    branches: [ main ]
   pull_request:
-    branches: ["**"]
-
-permissions:
-  contents: read
+    branches: [ main ]
 
 jobs:
-  ci:
-    name: Build, Lint & Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version-file: "go.mod"
-
-      - name: Download dependencies
-        run: go mod download
-
-      - name: Lint
-        run: make lint
-
-      - name: Build
-        run: make build
-
-      - name: Test
-        run: make test
+  call-common-ci:
+    uses: its-the-vibe/.github/.github/workflows/common-ci.yaml@main
+    permissions:
+      contents: read
+      packages: write
+    secrets: inherit
